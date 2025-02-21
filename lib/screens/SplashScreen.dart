@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_supabase_milk_subscription/screens/ProductScreen.dart';
+import 'package:flutter_supabase_milk_subscription/screens/auth/LoginScreen.dart';
 import 'dart:async';
+
+import 'HomePage.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -14,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => ProductScreen(title: 'Home')),
+        MaterialPageRoute(builder: (context) => LoginScreen(title: 'Login')),
       ); // Navigate to HomeScreen
     });
   }
