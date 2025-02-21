@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_supabase_milk_subscription/screens/CartScreen.dart';
+import 'package:flutter_supabase_milk_subscription/screens/ProductScreen.dart';
 import 'package:flutter_supabase_milk_subscription/screens/SettingScreen.dart';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -54,6 +56,32 @@ class CustomDrawer extends StatelessWidget {
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushReplacementNamed(context, '/home');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.shopping_cart),
+              title: Text('Products'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  parentContext,
+                  MaterialPageRoute(
+                    builder: (context) => ProductScreen(title: 'Product'),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.shopping_cart),
+              title: Text('Cart'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  parentContext,
+                  MaterialPageRoute(
+                    builder: (context) => CartScreen(title: 'Cart'),
+                  ),
+                );
               },
             ),
             ListTile(
