@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_supabase_milk_subscription/screens/CartScreen.dart';
+import 'package:flutter_supabase_milk_subscription/screens/HomePage.dart';
 import 'package:flutter_supabase_milk_subscription/screens/ProductScreen.dart';
 import 'package:flutter_supabase_milk_subscription/screens/SettingScreen.dart';
 
@@ -55,7 +56,12 @@ class CustomDrawer extends StatelessWidget {
               title: Text('Home'),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushReplacementNamed(context, '/home');
+                Navigator.push(
+                  parentContext,
+                  MaterialPageRoute(
+                    builder: (context) => HomePage(),
+                  ),
+                );
               },
             ),
             ListTile(
