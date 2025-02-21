@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_supabase_milk_subscription/screens/CartScreen.dart';
 import 'package:flutter_supabase_milk_subscription/screens/HomeScreen.dart';
+import 'package:flutter_supabase_milk_subscription/screens/ProductScreen.dart';
 import 'package:flutter_supabase_milk_subscription/services/UiProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -46,7 +48,7 @@ class MyApp extends StatelessWidget {
               useMaterial3: true,
             ),
 
-            home: HomeScreen(title: 'Home'),
+            home: ProductScreen(title: 'Home'),
 
           );
         },
