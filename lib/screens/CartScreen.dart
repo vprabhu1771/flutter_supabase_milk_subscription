@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../models/Cart.dart';
+import '../widgets/CustomDrawer.dart';
 
 class CartScreen extends StatefulWidget {
   final String title;
@@ -94,6 +95,7 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(widget.title)),
+      drawer: CustomDrawer(parentContext: context),
       body: RefreshIndicator(
         onRefresh: fetchCartItems,
         child: isLoading
