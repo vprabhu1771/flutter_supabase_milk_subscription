@@ -28,4 +28,12 @@ class Variant {
       'unit_price': unitPrice,
     };
   }
+
+  factory Variant.placeholder() => Variant(
+    id: 0,
+    productId: 0,
+    qty: 'N/A',
+    unitPrice: '0.0',
+  );
+
 }
