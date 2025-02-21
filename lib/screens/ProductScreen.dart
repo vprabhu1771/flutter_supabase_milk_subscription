@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../models/Product.dart';
+import '../models/SubscriptionPlan.dart';
 import 'ProductDetailScreen.dart';
 
 
@@ -101,7 +102,34 @@ class ProductCard extends StatefulWidget {
 }
 
 class _ProductCardState extends State<ProductCard> {
+  final SupabaseClient _supabase = Supabase.instance.client;
   int selectedVariantIndex = 0;
+  List<SubscriptionPlan> subscriptionPlans = [];
+  SubscriptionPlan? selectedPlan;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchSubscriptionPlans();
+  }
+
+  Future<void> fetchSubscriptionPlans() async {
+    try {
+      final response = await _supabase.from('subscription_plans').select('*');
+      if (response.isNotEmpty) {
+        setState(() {
+          subscriptionPlans = (response as List)
+              .map((item) => SubscriptionPlan.fromJson(item))
+              .toList();
+          selectedPlan = subscriptionPlans.first; // Default selection
+        });
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to load subscription plans: $e')),
+      );
+    }
+  }
 
   void _navigateToProductDetail() {
     Navigator.push(
@@ -118,7 +146,7 @@ class _ProductCardState extends State<ProductCard> {
     final selectedVariant = product.variants[selectedVariantIndex];
 
     return InkWell(
-      onTap: _navigateToProductDetail, // Navigate to product detail on tap
+      onTap: _navigateToProductDetail,
       child: Card(
         margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -127,7 +155,6 @@ class _ProductCardState extends State<ProductCard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Product Image (clickable)
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: product.image_path.isNotEmpty
@@ -140,8 +167,6 @@ class _ProductCardState extends State<ProductCard> {
                     : const Icon(Icons.image_not_supported, size: 100),
               ),
               const SizedBox(height: 12),
-
-              // Product Name (clickable)
               GestureDetector(
                 onTap: _navigateToProductDetail,
                 child: Text(
@@ -152,27 +177,7 @@ class _ProductCardState extends State<ProductCard> {
               ),
               const SizedBox(height: 12),
 
-              // Add to Cart Button (clickable)
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text('${product.name} added to cart'),
-                    ));
-                  },
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  child: const Text('Add to Cart'),
-                ),
-              ),
-              const SizedBox(height: 12),
-
-              // Variants Selection
+              // Variant Selection
               if (product.variants.isNotEmpty) ...[
                 const Text(
                   'Select Variant:',
@@ -200,11 +205,55 @@ class _ProductCardState extends State<ProductCard> {
                 const SizedBox(height: 12),
               ],
 
+              // Subscription Plan Dropdown
+              if (subscriptionPlans.isNotEmpty) ...[
+                const Text(
+                  'Select Subscription Plan:',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                DropdownButton<SubscriptionPlan>(
+                  value: selectedPlan,
+                  isExpanded: true,
+                  items: subscriptionPlans.map((plan) {
+                    return DropdownMenuItem(
+                      value: plan,
+                      child: Text(plan.name),
+                    );
+                  }).toList(),
+                  onChanged: (plan) {
+                    setState(() {
+                      selectedPlan = plan;
+                    });
+                  },
+                ),
+                const SizedBox(height: 12),
+              ],
+
               // Price Display
               Text(
                 '₹ ${selectedVariant.unitPrice}',
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.green),
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
+
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('${product.name} added to cart')),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: const Text('Add to Cart'),
+                ),
+              ),
+              const SizedBox(height: 12),
             ],
           ),
         ),
