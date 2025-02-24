@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_supabase_milk_subscription/screens/CartScreen.dart';
+import 'package:flutter_supabase_milk_subscription/screens/DeliveryMapScreen.dart';
 import 'package:flutter_supabase_milk_subscription/screens/HomePage.dart';
 import 'package:flutter_supabase_milk_subscription/screens/ProductScreen.dart';
 import 'package:flutter_supabase_milk_subscription/screens/SettingScreen.dart';
@@ -99,6 +100,19 @@ class CustomDrawer extends StatelessWidget {
                   parentContext,
                   MaterialPageRoute(
                     builder: (context) => SettingScreen(title: 'Settings'),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Map'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  parentContext,
+                  MaterialPageRoute(
+                    builder: (context) => DeliveryMapScreen(),
                   ),
                 );
               },
