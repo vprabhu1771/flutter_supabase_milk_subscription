@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_supabase_milk_subscription/delivery/DeliveryDashboard.dart';
+import 'package:flutter_supabase_milk_subscription/delivery/DeliveryListScreen.dart';
 import 'package:flutter_supabase_milk_subscription/screens/CartScreen.dart';
-import 'package:flutter_supabase_milk_subscription/screens/DeliveryMapScreen.dart';
+import 'package:flutter_supabase_milk_subscription/delivery/DeliveryMapScreen.dart';
 import 'package:flutter_supabase_milk_subscription/screens/HomePage.dart';
 import 'package:flutter_supabase_milk_subscription/screens/ProductScreen.dart';
 import 'package:flutter_supabase_milk_subscription/screens/SettingScreen.dart';
@@ -9,6 +11,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 
+import '../delivery/EarningsPaymentsScreen.dart';
+import '../delivery/NotificationScreen.dart';
 import '../screens/HomeScreen.dart';
 import '../screens/auth/LoginScreen.dart';
 import '../screens/auth/ProfileScreen.dart';
@@ -161,20 +165,52 @@ class CustomDrawer extends StatelessWidget {
               ] else if (role == 'delivery') ...[
                 ListTile(
                   leading: Icon(Icons.map),
-                  title: Text('Order'),
+                  title: Text('Dashboard'),
                   onTap: () {
                     Navigator.pop(context);
-                    Navigator.push(parentContext, MaterialPageRoute(builder: (context) => DeliveryMapScreen()));
+                    Navigator.push(parentContext, MaterialPageRoute(builder: (context) => DeliveryDashboard(title: 'Dashboard')));
                   },
                 ),
                 ListTile(
                   leading: Icon(Icons.map),
-                  title: Text('Map'),
+                  title: Text('Assigned Deliveries'),
                   onTap: () {
                     Navigator.pop(context);
-                    Navigator.push(parentContext, MaterialPageRoute(builder: (context) => DeliveryMapScreen()));
+                    Navigator.push(parentContext, MaterialPageRoute(builder: (context) => DeliveryListScreen(title: 'Assigned Deliveries')));
                   },
                 ),
+                ListTile(
+                  leading: Icon(Icons.map),
+                  title: Text('Earnings & Payments'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(parentContext, MaterialPageRoute(builder: (context) => EarningsPaymentsScreen(title: 'Earnings & Payments')));
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.map),
+                  title: Text('Notification'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(parentContext, MaterialPageRoute(builder: (context) => NotificationScreen(title: 'Notification')));
+                  },
+                ),
+                // ListTile(
+                //   leading: Icon(Icons.map),
+                //   title: Text('Order'),
+                //   onTap: () {
+                //     Navigator.pop(context);
+                //     Navigator.push(parentContext, MaterialPageRoute(builder: (context) => DeliveryMapScreen()));
+                //   },
+                // ),
+                // ListTile(
+                //   leading: Icon(Icons.map),
+                //   title: Text('Map'),
+                //   onTap: () {
+                //     Navigator.pop(context);
+                //     Navigator.push(parentContext, MaterialPageRoute(builder: (context) => DeliveryMapScreen()));
+                //   },
+                // ),
                 ListTile(
                   leading: Icon(Icons.settings),
                   title: Text('Settings'),
