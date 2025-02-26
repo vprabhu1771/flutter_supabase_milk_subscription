@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../widgets/CustomDrawer.dart';
 import '../HomeScreen.dart';
+
+final supabase = Supabase.instance.client;
 
 class ProfileScreen extends StatefulWidget {
   final String title;
@@ -15,6 +19,8 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
 
   final user = supabase.auth.currentUser;
+
+  final storage = FlutterSecureStorage(); // Secure storage instance
 
   Future<void> signOut() async {
     await supabase.auth.signOut();
