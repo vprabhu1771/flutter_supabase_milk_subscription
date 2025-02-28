@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_supabase_milk_subscription/admin/OrderManagementScreen.dart';
 import 'package:flutter_supabase_milk_subscription/delivery/DeliveryDashboard.dart';
 import 'package:flutter_supabase_milk_subscription/delivery/DeliveryListScreen.dart';
 import 'package:flutter_supabase_milk_subscription/screens/CartScreen.dart';
@@ -83,6 +84,17 @@ class CustomDrawer extends StatelessWidget {
 
               // Role-based rendering
               if (role == 'admin') ...[
+                ListTile(
+                  leading: Icon(Icons.settings),
+                  title: Text('Order Management'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                        parentContext,
+                        MaterialPageRoute(builder: (context) => OrderManagementScreen(title: 'Order Management'))
+                    );
+                  },
+                ),
                 ListTile(
                   leading: Icon(Icons.settings),
                   title: Text('Analytics & Reports'),
