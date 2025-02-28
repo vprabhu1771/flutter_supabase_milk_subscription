@@ -21,28 +21,28 @@ CREATE TABLE cart_items (
 ```sql
 INSERT INTO carts (user_id, subscription_plan_id, created_at)
 VALUES (
-'c56a4180-65aa-42ec-a945-5fd21dec0538', -- Replace with an actual user UUID
-1,                                      -- Assuming a valid subscription_plan_id
-NOW()
+    'c56a4180-65aa-42ec-a945-5fd21dec0538', -- Replace with an actual user UUID
+    1,                                      -- Assuming a valid subscription_plan_id
+    NOW()
 );
 ```
 
 ```sql
 INSERT INTO cart_items (
-user_id,
-cart_id,
-product_variant_id,
-subscription_plan_id,
-quantity,
-created_at
+    user_id,
+    cart_id,
+    product_variant_id,
+    subscription_plan_id,
+    quantity,
+    created_at
 )
 VALUES (
-'c56a4180-65aa-42ec-a945-5fd21dec0538', -- Same user_id as above
-1,                                      -- Replace with the cart_id inserted above
-2,                                      -- Replace with a valid product_variant_id
-1,                                      -- Replace with a valid subscription_plan_id
-3,                                      -- Quantity of the product
-NOW()
+    'c56a4180-65aa-42ec-a945-5fd21dec0538', -- Same user_id as above
+    1,                                      -- Replace with the cart_id inserted above
+    2,                                      -- Replace with a valid product_variant_id
+    1,                                      -- Replace with a valid subscription_plan_id
+    3,                                      -- Quantity of the product
+    NOW()
 );
 ```
 ```sql
