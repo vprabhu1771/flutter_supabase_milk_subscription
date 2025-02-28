@@ -85,11 +85,65 @@ class _CartScreenState extends State<CartScreen> {
     }
   }
 
+  Future<void> clearCart() async {
+    final user = supabase.auth.currentUser;
+    if (user == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please log in to clear your cart')),
+      );
+      return;
+    }
+
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Clear Cart"),
+        content: const Text("Are you sure you want to remove all items from your cart?"),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text("Cancel"),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text("Yes, Clear"),
+          ),
+        ],
+      ),
+    );
+
+    if (confirm == true) {
+      try {
+        await supabase.from('carts').delete().eq('user_id', user.id);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Cart cleared successfully')),
+        );
+        await fetchCartItems();
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error clearing cart: $e')),
+        );
+        print('Error clearing cart: $e');
+      }
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
+      appBar: AppBar(
+          title: Text(widget.title),
+          actions: [
+            if (cartItems.isNotEmpty)
+              IconButton(
+                icon: const Icon(Icons.delete_sweep),
+                tooltip: "Clear Cart",
+                onPressed: clearCart,
+              ),
+          ],
+      ),
       drawer: CustomDrawer(parentContext: context),
       body: RefreshIndicator(
         onRefresh: fetchCartItems,
