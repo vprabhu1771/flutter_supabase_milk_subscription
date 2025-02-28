@@ -122,6 +122,19 @@ class _LoginScreenState extends State<LoginScreen> {
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: [
+            // Logo at the Top
+            Image.asset(
+              'assets/splash_logo.jpg',  // Make sure to add your logo in assets folder
+              height: 100,
+            ),
+            SizedBox(height: 20),
+
+            Text(
+              "Login",
+              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20),
+
             TextField(
               controller: emailController,
               decoration: InputDecoration(labelText: 'Email'),
