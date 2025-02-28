@@ -59,6 +59,7 @@ class _CartScreenState extends State<CartScreen> {
       setState(() {
         errorMessage = 'Error fetching cart items: $e';
       });
+      print('Error fetching cart items: $e');
     } finally {
       setState(() {
         isLoading = false;
@@ -68,24 +69,18 @@ class _CartScreenState extends State<CartScreen> {
 
   Future<void> removeFromCart(int cartId) async {
     try {
-      final response = await supabase.from('carts').delete().eq('id', cartId);
+      await supabase.from('carts').delete().eq('id', cartId);
 
-      if (response != null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Item removed from cart')),
-        );
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Item removed from cart')),
+      );
 
-        // Re-fetch updated cart items
-        await fetchCartItems();
-      } else {
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   const SnackBar(content: Text('Failed to remove item. Please try again.')),
-        // );
-      }
+      // Re-fetch updated cart items
+      await fetchCartItems();
     } catch (e) {
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(content: Text('Error removing item: $e')),
-      // );
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error removing item: $e')),
+      );
       print('Error removing item: $e');
     }
   }
@@ -147,7 +142,9 @@ class _CartScreenState extends State<CartScreen> {
                           const SizedBox(height: 4),
                           Text('Variant: ${item.variants.qty}'),
                           Text('Quantity: ${item.qty}'),
-                          Text('Unit Price: ₹ ${item.variants.unitPrice.toStringAsFixed(2)}'),
+                          Text(
+                            'Unit Price: ₹ ${item.variants.unitPrice.toStringAsFixed(2)}',
+                          ),
                         ],
                       ),
                     ),
