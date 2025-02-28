@@ -86,6 +86,17 @@ class CustomDrawer extends StatelessWidget {
               if (role == 'admin') ...[
                 ListTile(
                   leading: Icon(Icons.settings),
+                  title: Text('Customers Management'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                        parentContext,
+                        MaterialPageRoute(builder: (context) => CustomerManagementScreen(title: 'Customers Management'))
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.settings),
                   title: Text('Order Management'),
                   onTap: () {
                     Navigator.pop(context);
@@ -120,17 +131,6 @@ class CustomDrawer extends StatelessWidget {
                   onTap: () {
                     // Navigator.pop(context);
                     // Navigator.push(parentContext, MaterialPageRoute(builder: (context) => SettingScreen(title: 'Settings')));
-                  },
-                ),
-                ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text('Customers'),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                        parentContext,
-                        MaterialPageRoute(builder: (context) => CustomerManagementScreen(title: 'Customers'))
-                    );
                   },
                 ),
                 ListTile(
