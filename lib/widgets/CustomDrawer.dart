@@ -11,6 +11,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 
+import '../admin/AnalyticsReportPage.dart';
 import '../delivery/EarningsPaymentsScreen.dart';
 import '../delivery/NotificationScreen.dart';
 import '../screens/HomeScreen.dart';
@@ -85,8 +86,11 @@ class CustomDrawer extends StatelessWidget {
                   leading: Icon(Icons.settings),
                   title: Text('Analytics & Reports'),
                   onTap: () {
-                    // Navigator.pop(context);
-                    // Navigator.push(parentContext, MaterialPageRoute(builder: (context) => SettingScreen(title: 'Settings')));
+                    Navigator.pop(context);
+                    Navigator.push(
+                        parentContext,
+                        MaterialPageRoute(builder: (context) => AnalyticsReportScreen(title: 'Analytics & Reports'))
+                    );
                   },
                 ),
                 ListTile(
