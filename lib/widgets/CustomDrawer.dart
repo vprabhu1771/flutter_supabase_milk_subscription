@@ -13,6 +13,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 
+import '../admin/AdminNotificationScreen.dart';
 import '../admin/AnalyticsReportScreen.dart';
 import '../admin/CustomerManagementScreen.dart';
 import '../admin/DeliveryRouteScreen.dart';
@@ -138,6 +139,17 @@ class CustomDrawer extends StatelessWidget {
                     Navigator.push(
                         parentContext,
                         MaterialPageRoute(builder: (context) => AnalyticsReportScreen(title: 'Analytics & Reports'))
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.settings),
+                  title: Text('Notifications & Alerts'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                        parentContext,
+                        MaterialPageRoute(builder: (context) => AdminNotificationScreen(title: 'Notifications & Alerts'))
                     );
                   },
                 ),
