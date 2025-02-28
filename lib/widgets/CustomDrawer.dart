@@ -15,6 +15,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../admin/AnalyticsReportScreen.dart';
 import '../admin/CustomerManagementScreen.dart';
+import '../admin/DeliveryRouteScreen.dart';
 import '../delivery/EarningsPaymentsScreen.dart';
 import '../delivery/NotificationScreen.dart';
 import '../screens/HomeScreen.dart';
@@ -120,6 +121,17 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   leading: Icon(Icons.settings),
+                  title: Text('Delivery Routes & Tracking'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                        parentContext,
+                        MaterialPageRoute(builder: (context) => DeliveryRouteScreen(title: 'Delivery Routes & Tracking'))
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.settings),
                   title: Text('Analytics & Reports'),
                   onTap: () {
                     Navigator.pop(context);
@@ -127,14 +139,6 @@ class CustomDrawer extends StatelessWidget {
                         parentContext,
                         MaterialPageRoute(builder: (context) => AnalyticsReportScreen(title: 'Analytics & Reports'))
                     );
-                  },
-                ),
-                ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text('Invoice'),
-                  onTap: () {
-                    // Navigator.pop(context);
-                    // Navigator.push(parentContext, MaterialPageRoute(builder: (context) => SettingScreen(title: 'Settings')));
                   },
                 ),
                 ListTile(
