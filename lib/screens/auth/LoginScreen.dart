@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final TextEditingController passwordController = TextEditingController();
 
-  String _selectedRole = 'Customer';
+  String _selectedRole = 'Admin';
 
   final List<String> _roles = ['Customer', 'Delivery', 'Admin'];
 
@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    emailController.text = "prabhu@gmail.com";
+    emailController.text = "admin@gmail.com";
     passwordController.text = "admin@123";
   }
 
@@ -177,6 +177,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 setState(() {
                   _selectedRole = value!;
                 });
+
+                // Set email & password based on role
+                if (_selectedRole == 'Customer') {
+                  emailController.text = "abu@gmail.com";
+                  passwordController.text = "admin@123";
+                } else if (_selectedRole == 'Delivery') {
+                  emailController.text = "prabhu@gmail.com";
+                  passwordController.text = "admin@123";
+                } else if (_selectedRole == 'Admin') {
+                  emailController.text = "admin@gmail.com";
+                  passwordController.text = "admin@123";
+                }
               },
             ),
             SizedBox(height: 20),
