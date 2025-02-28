@@ -154,36 +154,52 @@ class _ProductCardState extends State<ProductCard> {
     final product = widget.product;
     final variant = product.variants[selectedVariantIndex];
 
-    // setState(() => isAddingToCart = true);
-
     try {
-      final response = await _supabase.from('carts').insert({
-        'product_id': product.id,
-        'variant_id': variant.id,
-        'qty': 1, // Default quantity, can be made dynamic
-        'price': variant.unitPrice,
-        'attributes': {}, // Add any attributes if needed
-        'user_id': user.id,
-        'subscription_plan_id': selectedPlan?.id
-      });
+      // Use maybeSingle() to get a single matching row or null if none exist
+      final existingItem = await _supabase
+          .from('carts')
+          .select()
+          .eq('user_id', user.id)
+          .eq('product_id', product.id)
+          .eq('variant_id', variant.id)
+          .maybeSingle();
 
-      if (response != null) {
+      if (existingItem != null) {
+        // Increase the quantity if item exists
+        final newQty = (existingItem['qty'] as int) + 1;
+        await _supabase
+            .from('carts')
+            .update({'qty': newQty})
+            .eq('id', existingItem['id']);
+
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('${product.name} added to cart')),
+          SnackBar(content: Text('Quantity updated for ${product.name}')),
         );
       } else {
+        // Insert a new item if it doesn't exist
+        await _supabase.from('carts').insert({
+          'product_id': product.id,
+          'variant_id': variant.id,
+          'qty': 1, // Default quantity
+          'price': variant.unitPrice,
+          'attributes': {}, // Add any attributes if needed
+          'user_id': user.id,
+          'subscription_plan_id': selectedPlan?.id
+        });
+
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Failed to add to cart')),
+          SnackBar(content: Text('${product.name} added to cart')),
         );
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $e')),
       );
-    } finally {
-      // setState(() => isAddingToCart = false);
+      print('Error adding to cart: $e');
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
