@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_supabase_milk_subscription/admin/AdminSettingAndUserManagement.dart';
 import 'package:flutter_supabase_milk_subscription/admin/OrderManagementScreen.dart';
 import 'package:flutter_supabase_milk_subscription/admin/PaymentTrackingScreen.dart';
 import 'package:flutter_supabase_milk_subscription/delivery/DeliveryDashboard.dart';
@@ -151,6 +152,14 @@ class CustomDrawer extends StatelessWidget {
                         parentContext,
                         MaterialPageRoute(builder: (context) => AdminNotificationScreen(title: 'Notifications & Alerts'))
                     );
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.settings),
+                  title: Text('Settings & User Management'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(parentContext, MaterialPageRoute(builder: (context) => AdminSettingAndUserManagement(title: 'Settings & User Management')));
                   },
                 ),
                 ListTile(
