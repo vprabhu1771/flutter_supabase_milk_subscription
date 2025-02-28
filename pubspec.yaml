@@ -49,6 +49,7 @@ dependencies:
   intl: ^0.20.2
   fl_chart: ^0.70.2
   flutter_slidable: ^4.0.0
+  flutter_datetime_picker_plus: ^2.2.0
 
 dev_dependencies:
   flutter_test:
