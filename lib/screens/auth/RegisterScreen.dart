@@ -22,9 +22,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
   final storage = FlutterSecureStorage();
 
-  final TextEditingController nameController = TextEditingController(text: "prabhu");
+  final TextEditingController nameController = TextEditingController(text: "abu");
   final TextEditingController phoneController = TextEditingController(text: "9944177142");
-  final TextEditingController emailController = TextEditingController(text: "prabhu@gmail.com");
+  final TextEditingController emailController = TextEditingController(text: "abu@gmail.com");
   final TextEditingController passwordController = TextEditingController(text: "admin@123");
 
   bool _isLoading = false;
