@@ -8,7 +8,7 @@ CREATE TABLE "public"."products" (
     "created_at" TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     "name" VARCHAR(255) NOT NULL,
     "description" TEXT,
-    "image_path" TEXT DEFAULT 'https://bezzyxfbmfykhwqqioys.supabase.co/storage/v1/object/public/assets//no_image_available.jpg'
+    "image_path" TEXT DEFAULT 'https://xxllfyzeciydpjwwyeef.supabase.co/storage/v1/object/public/assets//No_Image_Available.jpg'
 );
 ```
 

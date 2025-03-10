@@ -293,7 +293,7 @@ class _ProductCardState extends State<ProductCard> {
 
               // Price Display
               Text(
-                '₹ ${selectedVariant.unitPrice}',
+                '₹ ${selectedVariant.unitPrice.toString()}',
                 style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
 

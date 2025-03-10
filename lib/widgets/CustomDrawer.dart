@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_supabase_milk_subscription/admin/AdminDashboard.dart';
 import 'package:flutter_supabase_milk_subscription/admin/AdminSettingAndUserManagement.dart';
 import 'package:flutter_supabase_milk_subscription/admin/OrderManagementScreen.dart';
 import 'package:flutter_supabase_milk_subscription/admin/PaymentTrackingScreen.dart';
@@ -16,7 +17,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../admin/AdminNotificationScreen.dart';
 import '../admin/AnalyticsReportScreen.dart';
-import '../admin/CustomerManagementScreen.dart';
+import '../admin/customer/CustomerManagementScreen.dart';
 import '../admin/DeliveryRouteScreen.dart';
 import '../delivery/EarningsPaymentsScreen.dart';
 import '../delivery/NotificationScreen.dart';
@@ -76,20 +77,28 @@ class CustomDrawer extends StatelessWidget {
 
               // Common for all logged-in users
               if (user != null) ...[
-                ListTile(
-                  leading: Icon(Icons.home),
-                  title: Text('Home'),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(parentContext, MaterialPageRoute(builder: (context) => HomePage()));
-                  },
-                ),
+                // ListTile(
+                //   leading: Icon(Icons.home),
+                //   title: Text('Home'),
+                //   onTap: () {
+                //     Navigator.pop(context);
+                //     Navigator.push(parentContext, MaterialPageRoute(builder: (context) => HomePage()));
+                //   },
+                // ),
               ],
 
               // Role-based rendering
               if (role == 'admin') ...[
                 ListTile(
-                  leading: Icon(Icons.settings),
+                  leading: Icon(Icons.dashboard),
+                  title: Text('Dashboard'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(parentContext, MaterialPageRoute(builder: (context) => AdminDashboard(title: 'Admin Dashboard')));
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.contacts),
                   title: Text('Customers Management'),
                   onTap: () {
                     Navigator.pop(context);
@@ -100,7 +109,7 @@ class CustomDrawer extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.settings),
+                  leading: Icon(Icons.shopping_cart),
                   title: Text('Order Management'),
                   onTap: () {
                     Navigator.pop(context);
@@ -111,7 +120,7 @@ class CustomDrawer extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.settings),
+                  leading: Icon(Icons.monetization_on),
                   title: Text('Payment Tracking'),
                   onTap: () {
                     Navigator.pop(context);
@@ -122,7 +131,7 @@ class CustomDrawer extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.settings),
+                  leading: Icon(Icons.delivery_dining),
                   title: Text('Delivery Routes & Tracking'),
                   onTap: () {
                     Navigator.pop(context);
@@ -133,7 +142,7 @@ class CustomDrawer extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.settings),
+                  leading: Icon(Icons.analytics_outlined),
                   title: Text('Analytics & Reports'),
                   onTap: () {
                     Navigator.pop(context);
@@ -144,7 +153,7 @@ class CustomDrawer extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.settings),
+                  leading: Icon(Icons.notification_important),
                   title: Text('Notifications & Alerts'),
                   onTap: () {
                     Navigator.pop(context);
@@ -180,6 +189,14 @@ class CustomDrawer extends StatelessWidget {
                 ),
               ] else if (role == 'customer') ...[
                 ListTile(
+                  leading: Icon(Icons.home),
+                  title: Text('Home'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(parentContext, MaterialPageRoute(builder: (context) => HomePage()));
+                  },
+                ),
+                ListTile(
                   leading: Icon(Icons.shopping_cart),
                   title: Text('Products'),
                   onTap: () {
@@ -212,6 +229,14 @@ class CustomDrawer extends StatelessWidget {
                   },
                 ),
               ] else if (role == 'delivery') ...[
+                ListTile(
+                  leading: Icon(Icons.home),
+                  title: Text('Home'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(parentContext, MaterialPageRoute(builder: (context) => DeliveryDashboard(title: 'Delivery Dashboard')));
+                  },
+                ),
                 ListTile(
                   leading: Icon(Icons.map),
                   title: Text('Dashboard'),
