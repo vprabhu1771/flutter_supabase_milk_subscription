@@ -5,6 +5,7 @@ import 'package:flutter_supabase_milk_subscription/screens/CartScreen.dart';
 import 'package:flutter_supabase_milk_subscription/screens/CustomerDashboard.dart';
 import 'package:flutter_supabase_milk_subscription/screens/HomePage.dart';
 import 'package:flutter_supabase_milk_subscription/screens/DeliveryTrackingScreen.dart';
+import 'package:flutter_supabase_milk_subscription/screens/PaymentScreen.dart';
 import 'package:flutter_supabase_milk_subscription/screens/ProductScreen.dart';
 import 'package:flutter_supabase_milk_subscription/screens/SettingScreen.dart';
 
@@ -12,6 +13,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 
+import '../screens/SubscriptionScreen.dart';
 import '../screens/admin/AdminDashboard.dart';
 import '../screens/admin/AdminNotificationScreen.dart';
 import '../screens/admin/AdminSettingAndUserManagement.dart';
@@ -231,6 +233,22 @@ class CustomDrawer extends StatelessWidget {
                   onTap: () {
                     Navigator.pop(context);
                     Navigator.push(parentContext, MaterialPageRoute(builder: (context) => DeliveryTrackingScreen(title: 'Delivery Tracking')));
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.shopping_cart_checkout),
+                  title: Text('Milk Subscription'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(parentContext, MaterialPageRoute(builder: (context) => SubscriptionScreen(title: 'Milk Subscription')));
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.shopping_cart_checkout),
+                  title: Text("Payments & Billing"),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(parentContext, MaterialPageRoute(builder: (context) => PaymentScreen(title: "Payments & Billing")));
                   },
                 ),
                 ListTile(
