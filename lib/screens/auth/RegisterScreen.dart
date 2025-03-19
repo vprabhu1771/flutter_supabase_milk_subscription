@@ -3,9 +3,9 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../../admin/AdminDashboard.dart';
-import '../../delivery/DeliveryDashboard.dart';
-import '../HomeScreen.dart';
+import '../CustomerDashboard.dart';
+import '../admin/AdminDashboard.dart';
+import '../delivery/DeliveryDashboard.dart';
 import 'LoginScreen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -131,7 +131,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         screen = DeliveryDashboard(title: "Delivery Dashboard");
         break;
       default:
-        screen = HomeScreen(title: 'Home');
+        screen = CustomerDashboard(title: 'Home');
     }
 
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => screen));

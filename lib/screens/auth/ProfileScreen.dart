@@ -3,7 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../widgets/CustomDrawer.dart';
-import '../HomeScreen.dart';
+import '../CustomerDashboard.dart';
 
 final supabase = Supabase.instance.client;
 
@@ -31,7 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       context,
       MaterialPageRoute(
         // builder: (context) => LoginScreen(title: 'Login'),
-        builder: (context) => HomeScreen(title: 'Home'),
+        builder: (context) => CustomerDashboard(title: 'Home'),
       ),
     );
   }

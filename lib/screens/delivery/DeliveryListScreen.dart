@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_supabase_milk_subscription/delivery/DeliveryMapScreen.dart';
-import 'package:flutter_supabase_milk_subscription/delivery/models/Order.dart';
+import 'DeliveryMapScreen.dart';
 import 'OrderDetailScreen.dart';
+import 'models/Order.dart';
 
 class DeliveryListScreen extends StatefulWidget {
   final String title;

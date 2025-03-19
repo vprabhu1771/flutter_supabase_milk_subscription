@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_supabase_milk_subscription/delivery/DeliveryDashboard.dart';
 import 'package:flutter_supabase_milk_subscription/screens/HomePage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import '../../admin/AdminDashboard.dart';
-import '../HomeScreen.dart';
+
+import '../CustomerDashboard.dart';
+import '../admin/AdminDashboard.dart';
+import '../delivery/DeliveryDashboard.dart';
 import 'RegisterScreen.dart';
 
 final supabase = Supabase.instance.client;
@@ -71,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (role == 'admin') {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => AdminDashboard(title: "Admin Dashboard",)));
     } else if (role == 'customer') {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen(title: 'Home')));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => CustomerDashboard(title: 'Customer Dashboard')));
     } else if (role == 'delivery') {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => DeliveryDashboard(title: "Delivery Dashboard",)));
     }

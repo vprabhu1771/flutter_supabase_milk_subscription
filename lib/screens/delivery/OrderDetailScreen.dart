@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_supabase_milk_subscription/delivery/models/Order.dart';
+
+import 'models/Order.dart';
+
 
 class OrderDetailScreen extends StatefulWidget {
   final Order order;

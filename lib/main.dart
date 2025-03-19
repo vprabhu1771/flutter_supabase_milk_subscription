@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_supabase_milk_subscription/screens/CartScreen.dart';
-import 'package:flutter_supabase_milk_subscription/screens/HomeScreen.dart';
+import 'package:flutter_supabase_milk_subscription/screens/CustomerDashboard.dart';
 import 'package:flutter_supabase_milk_subscription/screens/ProductScreen.dart';
 import 'package:flutter_supabase_milk_subscription/screens/SplashScreen.dart';
 import 'package:flutter_supabase_milk_subscription/services/UiProvider.dart';

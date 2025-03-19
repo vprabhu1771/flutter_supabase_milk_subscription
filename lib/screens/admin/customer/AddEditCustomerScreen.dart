@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:flutter_supabase_milk_subscription/admin/customer/CustomerManagementScreen.dart';
+
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import 'CustomerManagementScreen.dart';
 
 class AddEditCustomerScreen extends StatefulWidget {
   final String title;

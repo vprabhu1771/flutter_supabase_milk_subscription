@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_supabase_milk_subscription/admin/AdminDashboard.dart';
-import 'package:flutter_supabase_milk_subscription/admin/AdminSettingAndUserManagement.dart';
-import 'package:flutter_supabase_milk_subscription/admin/OrderManagementScreen.dart';
-import 'package:flutter_supabase_milk_subscription/admin/PaymentTrackingScreen.dart';
-import 'package:flutter_supabase_milk_subscription/delivery/DeliveryDashboard.dart';
-import 'package:flutter_supabase_milk_subscription/delivery/DeliveryListScreen.dart';
+
+
 import 'package:flutter_supabase_milk_subscription/screens/CartScreen.dart';
-import 'package:flutter_supabase_milk_subscription/delivery/DeliveryMapScreen.dart';
 import 'package:flutter_supabase_milk_subscription/screens/HomePage.dart';
 import 'package:flutter_supabase_milk_subscription/screens/ProductScreen.dart';
 import 'package:flutter_supabase_milk_subscription/screens/SettingScreen.dart';
@@ -15,16 +10,21 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 
-import '../admin/AdminNotificationScreen.dart';
-import '../admin/AnalyticsReportScreen.dart';
-import '../admin/customer/CustomerManagementScreen.dart';
-import '../admin/DeliveryRouteScreen.dart';
-import '../delivery/EarningsPaymentsScreen.dart';
-import '../delivery/NotificationScreen.dart';
-import '../screens/HomeScreen.dart';
+import '../screens/admin/AdminDashboard.dart';
+import '../screens/admin/AdminNotificationScreen.dart';
+import '../screens/admin/AdminSettingAndUserManagement.dart';
+import '../screens/admin/AnalyticsReportScreen.dart';
+import '../screens/admin/DeliveryRouteScreen.dart';
+import '../screens/admin/OrderManagementScreen.dart';
+import '../screens/admin/PaymentTrackingScreen.dart';
+import '../screens/admin/customer/CustomerManagementScreen.dart';
 import '../screens/auth/LoginScreen.dart';
 import '../screens/auth/ProfileScreen.dart';
 import '../screens/auth/RegisterScreen.dart';
+import '../screens/delivery/DeliveryDashboard.dart';
+import '../screens/delivery/DeliveryListScreen.dart';
+import '../screens/delivery/EarningsPaymentsScreen.dart';
+import '../screens/delivery/NotificationScreen.dart';
 
 class CustomDrawer extends StatelessWidget {
   final BuildContext parentContext;
