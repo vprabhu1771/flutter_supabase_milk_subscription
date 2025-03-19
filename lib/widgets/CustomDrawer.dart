@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 
 import 'package:flutter_supabase_milk_subscription/screens/CartScreen.dart';
+import 'package:flutter_supabase_milk_subscription/screens/CustomerDashboard.dart';
 import 'package:flutter_supabase_milk_subscription/screens/HomePage.dart';
+import 'package:flutter_supabase_milk_subscription/screens/DeliveryTrackingScreen.dart';
 import 'package:flutter_supabase_milk_subscription/screens/ProductScreen.dart';
 import 'package:flutter_supabase_milk_subscription/screens/SettingScreen.dart';
 
@@ -72,7 +74,10 @@ class CustomDrawer extends StatelessWidget {
               UserAccountsDrawerHeader(
                 accountName: Text(user?.userMetadata?['name'] ?? "Guest"),
                 accountEmail: Text(user?.email ?? "No Email"),
-                currentAccountPicture: CircleAvatar(child: Icon(Icons.person, size: 40)),
+                currentAccountPicture: CircleAvatar(
+                  // child: Icon(Icons.person, size: 40),
+                  backgroundImage: NetworkImage(user?.userMetadata?['image_path'] ?? 'https://gravatar.com/avatar/${user!.email}'),
+                ),
               ),
 
               // Common for all logged-in users
@@ -188,12 +193,20 @@ class CustomDrawer extends StatelessWidget {
                   },
                 ),
               ] else if (role == 'customer') ...[
+                // ListTile(
+                //   leading: Icon(Icons.home),
+                //   title: Text('Home'),
+                //   onTap: () {
+                //     Navigator.pop(context);
+                //     Navigator.push(parentContext, MaterialPageRoute(builder: (context) => HomePage()));
+                //   },
+                // ),
                 ListTile(
                   leading: Icon(Icons.home),
                   title: Text('Home'),
                   onTap: () {
                     Navigator.pop(context);
-                    Navigator.push(parentContext, MaterialPageRoute(builder: (context) => HomePage()));
+                    Navigator.push(parentContext, MaterialPageRoute(builder: (context) => CustomerDashboard(title: 'Customer Dashboard')));
                   },
                 ),
                 ListTile(
@@ -210,6 +223,14 @@ class CustomDrawer extends StatelessWidget {
                   onTap: () {
                     Navigator.pop(context);
                     Navigator.push(parentContext, MaterialPageRoute(builder: (context) => CartScreen(title: 'Cart')));
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.shopping_cart_checkout),
+                  title: Text('Delivery Tracking'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(parentContext, MaterialPageRoute(builder: (context) => DeliveryTrackingScreen(title: 'Delivery Tracking')));
                   },
                 ),
                 ListTile(
