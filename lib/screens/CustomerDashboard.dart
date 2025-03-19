@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_supabase_milk_subscription/screens/ProductScreen.dart';
+import 'package:flutter_supabase_milk_subscription/screens/auth/ProfileScreen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../widgets/CustomDrawer.dart';
 import 'CustomerNotificationScreen.dart';
@@ -36,10 +37,18 @@ class _CustomerDashboardState extends State<CustomerDashboard> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: CircleAvatar(
-              backgroundImage: NetworkImage(
-                  user?.userMetadata?['image_path'] ?? 'https://gravatar.com/avatar/${user!.email}'),
-            ),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfileScreen(title: 'Profile')),
+                );
+              },
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(
+                    user?.userMetadata?['image_path'] ?? 'https://gravatar.com/avatar/${user!.email}'),
+              ),
+            )
           ),
         ],
       ),
