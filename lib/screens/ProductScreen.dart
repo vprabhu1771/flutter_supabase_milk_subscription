@@ -297,25 +297,27 @@ class _ProductCardState extends State<ProductCard> {
                 style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
 
-              // SizedBox(
-              //   width: double.infinity,
-              //   child: ElevatedButton(
-              //     onPressed: () {
-              //       ScaffoldMessenger.of(context).showSnackBar(
-              //         SnackBar(content: Text('${product.name} added to cart')),
-              //       );
-              //
-              //       addToCart();
-              //     },
-              //     style: ElevatedButton.styleFrom(
-              //       padding: const EdgeInsets.symmetric(vertical: 12),
-              //       shape: RoundedRectangleBorder(
-              //         borderRadius: BorderRadius.circular(8),
-              //       ),
-              //     ),
-              //     child: const Text('Add to Cart'),
-              //   ),
-              // ),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    // ScaffoldMessenger.of(context).showSnackBar(
+                    //   SnackBar(content: Text('${product.name} added to cart')),
+                    // );
+
+                    // addToCart();
+
+                    _navigateToProductDetail();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: const Text('Add'),
+                ),
+              ),
               const SizedBox(height: 12),
             ],
           ),
