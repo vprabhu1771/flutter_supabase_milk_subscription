@@ -219,14 +219,14 @@ class CustomDrawer extends StatelessWidget {
                     Navigator.push(parentContext, MaterialPageRoute(builder: (context) => ProductScreen(title: 'Product')));
                   },
                 ),
-                ListTile(
-                  leading: Icon(Icons.shopping_cart_checkout),
-                  title: Text('Cart'),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(parentContext, MaterialPageRoute(builder: (context) => CartScreen(title: 'Cart')));
-                  },
-                ),
+                // ListTile(
+                //   leading: Icon(Icons.shopping_cart_checkout),
+                //   title: Text('Cart'),
+                //   onTap: () {
+                //     Navigator.pop(context);
+                //     Navigator.push(parentContext, MaterialPageRoute(builder: (context) => CartScreen(title: 'Cart')));
+                //   },
+                // ),
                 ListTile(
                   leading: Icon(Icons.shopping_cart_checkout),
                   title: Text('Delivery Tracking'),
@@ -325,19 +325,19 @@ class CustomDrawer extends StatelessWidget {
                 //   },
                 // ),
                 ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text('Settings'),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(parentContext, MaterialPageRoute(builder: (context) => SettingScreen(title: 'Settings')));
-                  },
-                ),
-                ListTile(
                   leading: Icon(Icons.contacts),
                   title: Text('Profile'),
                   onTap: () {
                     Navigator.pop(context);
                     Navigator.push(parentContext, MaterialPageRoute(builder: (context) => ProfileScreen(title: 'Profile')));
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.settings),
+                  title: Text('Settings'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(parentContext, MaterialPageRoute(builder: (context) => SettingScreen(title: 'Settings')));
                   },
                 ),
               ],
