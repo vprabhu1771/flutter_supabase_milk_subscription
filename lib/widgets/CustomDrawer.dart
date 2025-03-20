@@ -247,8 +247,8 @@ class CustomDrawer extends StatelessWidget {
                   leading: Icon(Icons.shopping_cart_checkout),
                   title: Text("Payments & Billing"),
                   onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(parentContext, MaterialPageRoute(builder: (context) => PaymentScreen(title: "Payments & Billing")));
+                    // Navigator.pop(context);
+                    // Navigator.push(parentContext, MaterialPageRoute(builder: (context) => PaymentScreen(title: "Payments & Billing")));
                   },
                 ),
                 ListTile(
