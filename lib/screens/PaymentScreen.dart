@@ -1,92 +1,101 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class PaymentScreen extends StatefulWidget {
+  final double totalAmount;
 
-  final String title;
-
-  const PaymentScreen({super.key, required this.title});
+  const PaymentScreen({Key? key, required this.totalAmount}) : super(key: key);
 
   @override
-  State<PaymentScreen> createState() => _PaymentScreenState();
+  _PaymentScreenState createState() => _PaymentScreenState();
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
-  // Sample payment data
-  final List<Map<String, dynamic>> _paymentHistory = [
-    {"date": "2024-03-01", "amount": 250.00, "status": "Paid"},
-    {"date": "2024-03-05", "amount": 120.00, "status": "Pending"},
-    {"date": "2024-03-10", "amount": 300.00, "status": "Paid"},
-    {"date": "2024-03-15", "amount": 150.00, "status": "Pending"},
-  ];
+  late Razorpay _razorpay;
 
-  Color _getStatusColor(String status) {
-    return status == "Paid" ? Colors.green : Colors.red;
+  @override
+  void initState() {
+    super.initState();
+
+    // print(widget.totalAmount);
+    _razorpay = Razorpay();
+
+    // Razorpay event listeners
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+
+    _openRazorpay();
   }
 
-  void _payNow(double amount) {
-    // Open Payment Gateway (Razorpay, Stripe, PayPal)
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text("Payment"),
-          content: Text("Pay ₹$amount using Razorpay, Stripe, or PayPal?"),
-          actions: [
-            TextButton(onPressed: () => Navigator.pop(context), child: const Text("Cancel")),
-            TextButton(onPressed: () => Navigator.pop(context), child: const Text("Proceed")),
-          ],
-        );
-      },
-    );
+  @override
+  void dispose() {
+    _razorpay.clear(); // Clean up
+    super.dispose();
   }
 
-  void _downloadInvoice(String date, double amount) {
-    // Placeholder function to download invoice
+  void _openRazorpay() {
+    var options = {
+      'key': 'rzp_test_YourKeyHere',  // Replace with your Razorpay Key
+      'amount': (widget.totalAmount * 100).toInt(), // Convert to Paisa
+      'name': 'Your Company Name',
+      'description': 'Subscription Payment',
+      'prefill': {'contact': '9999999999', 'email': 'test@example.com'},
+      'external': {'wallets': ['paytm']}
+    };
+
+    try {
+      _razorpay.open(options);
+    } catch (e) {
+      debugPrint('Razorpay Error: $e');
+    }
+  }
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Downloading invoice for $date (₹$amount)")),
+      SnackBar(content: Text("Payment Successful: ${response.paymentId}")),
     );
   }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Payment Failed: ${response.message}")),
+    );
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("External Wallet Selected: ${response.walletName}")),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title), backgroundColor: Colors.blueAccent),
+      appBar: AppBar(title: const Text("Payment Screen")),
       body: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Payment History", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 10),
-            Expanded(
-              child: ListView.builder(
-                itemCount: _paymentHistory.length,
-                itemBuilder: (context, index) {
-                  final payment = _paymentHistory[index];
 
-                  return Card(
-                    child: ListTile(
-                      title: Text("Date: ${payment["date"]}"),
-                      subtitle: Text("Amount: ₹${payment["amount"]}"),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          if (payment["status"] == "Pending")
-                            IconButton(
-                              icon: const Icon(Icons.payment, color: Colors.blue),
-                              onPressed: () => _payNow(payment["amount"]),
-                            ),
-                          IconButton(
-                            icon: const Icon(Icons.download, color: Colors.grey),
-                            onPressed: () => _downloadInvoice(payment["date"], payment["amount"]),
-                          ),
-                        ],
-                      ),
-                      leading: Icon(Icons.circle, color: _getStatusColor(payment["status"])),
-                    ),
-                  );
-                },
-              ),
-            ),
+            // 💰 Total Amount Display
+            // Text(
+            //   'Total Amount: ₹ ${widget.totalAmount.toStringAsFixed(2)}',
+            //   style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            // ),
+            // const SizedBox(height: 16),
+            //
+            // // 🛒 Pay Now Button
+            // SizedBox(
+            //   width: double.infinity,
+            //   child: ElevatedButton(
+            //     onPressed: _openRazorpay,
+            //     child: const Text("Pay Now"),
+            //   ),
+            // ),
           ],
         ),
       ),
