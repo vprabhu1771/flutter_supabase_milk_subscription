@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_supabase_milk_subscription/screens/PaymentScreen.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -208,11 +209,19 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                          '${product.name} with ${selectedPlan?.name ?? 'No Plan'} added to cart. Total: ₹${totalAmount.toStringAsFixed(2)}'),
-                    ),
+                  // ScaffoldMessenger.of(context).showSnackBar(
+                  //   SnackBar(
+                  //     content: Text(
+                  //         '${product.name} with ${selectedPlan?.name ?? 'No Plan'} added to cart. Total: ₹${totalAmount.toStringAsFixed(2)}'),
+                  //   ),
+                  // );
+
+                  print(totalAmount);
+                  print("Total Amount in Paisa: ${(totalAmount * 100).toInt()}");
+
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PaymentScreen(totalAmount: totalAmount,))
                   );
                 },
                 child: const Text('Place Order'),
