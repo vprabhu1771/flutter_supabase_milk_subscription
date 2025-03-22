@@ -137,17 +137,17 @@ class CustomDrawer extends StatelessWidget {
                     );
                   },
                 ),
-                ListTile(
-                  leading: Icon(Icons.delivery_dining),
-                  title: Text('Delivery Routes & Tracking'),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                        parentContext,
-                        MaterialPageRoute(builder: (context) => DeliveryRouteScreen(title: 'Delivery Routes & Tracking'))
-                    );
-                  },
-                ),
+                // ListTile(
+                //   leading: Icon(Icons.delivery_dining),
+                //   title: Text('Delivery Routes & Tracking'),
+                //   onTap: () {
+                //     Navigator.pop(context);
+                //     Navigator.push(
+                //         parentContext,
+                //         MaterialPageRoute(builder: (context) => DeliveryRouteScreen(title: 'Delivery Routes & Tracking'))
+                //     );
+                //   },
+                // ),
                 ListTile(
                   leading: Icon(Icons.analytics_outlined),
                   title: Text('Analytics & Reports'),
