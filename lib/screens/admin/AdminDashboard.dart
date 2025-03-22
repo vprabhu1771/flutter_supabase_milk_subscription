@@ -123,20 +123,20 @@ class _AdminDashboardState extends State<AdminDashboard> {
             //   value: '$assignedDeliveries',
             //   color: Colors.blueAccent,
             // ),
-            SizedBox(height: 16),
-            _buildSummaryCard(
-              icon: Icons.attach_money,
-              title: 'Earnings',
-              value: '₹ ${earnings.toStringAsFixed(2)}',
-              color: Colors.green,
-              onTap: () {
-                // Navigate or perform an action
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AnalyticsReportScreen(title: 'Analytics & Reports')),
-                );
-              },
-            ),
+            // SizedBox(height: 16),
+            // _buildSummaryCard(
+            //   icon: Icons.attach_money,
+            //   title: 'Earnings',
+            //   value: '₹ ${earnings.toStringAsFixed(2)}',
+            //   color: Colors.green,
+            //   onTap: () {
+            //     // Navigate or perform an action
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => AnalyticsReportScreen(title: 'Analytics & Reports')),
+            //     );
+            //   },
+            // ),
             SizedBox(height: 16),
             _buildSummaryCard(
               icon: Icons.contacts,
