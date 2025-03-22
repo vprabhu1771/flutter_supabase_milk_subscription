@@ -48,19 +48,19 @@ class _AdminSettingAndUserManagementState extends State<AdminSettingAndUserManag
             subtitle: 'Assign delivery & admin roles',
             onTap: () {},
           ),
-          const SectionHeader(title: 'Payment Gateway Settings'),
-          SettingsTile(
-            icon: Icons.payment,
-            title: 'Configure Payment Gateway',
-            subtitle: 'Setup Stripe, PayPal, or Razorpay',
-            onTap: () {},
-          ),
-          SettingsTile(
-            icon: Icons.attach_money,
-            title: 'Transaction History',
-            subtitle: 'View all payments and transactions',
-            onTap: () {},
-          ),
+          // const SectionHeader(title: 'Payment Gateway Settings'),
+          // SettingsTile(
+          //   icon: Icons.payment,
+          //   title: 'Configure Payment Gateway',
+          //   subtitle: 'Setup Stripe, PayPal, or Razorpay',
+          //   onTap: () {},
+          // ),
+          // SettingsTile(
+          //   icon: Icons.attach_money,
+          //   title: 'Transaction History',
+          //   subtitle: 'View all payments and transactions',
+          //   onTap: () {},
+          // ),
         ],
       ),
     );
