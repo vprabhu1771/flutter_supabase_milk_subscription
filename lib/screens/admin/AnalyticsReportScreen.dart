@@ -1,18 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart'; // For charts
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:printing/printing.dart';
 
 class AnalyticsReportScreen extends StatefulWidget {
-  
   final String title;
 
   const AnalyticsReportScreen({super.key, required this.title});
-  
+
   @override
   _AnalyticsReportScreenState createState() => _AnalyticsReportScreenState();
 }
 
 class _AnalyticsReportScreenState extends State<AnalyticsReportScreen> {
   String selectedReport = 'Daily';
+
+  // Function to generate and print/export a PDF report
+  Future<void> generatePdfReport() async {
+    final pdf = pw.Document();
+
+    pdf.addPage(
+      pw.Page(
+        build: (pw.Context context) => pw.Column(
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
+          children: [
+            pw.Text('Analytics Report', style: pw.TextStyle(fontSize: 20, fontWeight: pw.FontWeight.bold)),
+            pw.SizedBox(height: 10),
+            pw.Text('Report Type: $selectedReport', style: pw.TextStyle(fontSize: 16)),
+            pw.SizedBox(height: 20),
+            pw.Text('Total Sales: ₹1500', style: pw.TextStyle(fontSize: 16, fontWeight: pw.FontWeight.bold)),
+            pw.Text('Total Deliveries: 120 Deliveries', style: pw.TextStyle(fontSize: 16, fontWeight: pw.FontWeight.bold)),
+          ],
+        ),
+      ),
+    );
+
+    await Printing.layoutPdf(onLayout: (PdfPageFormat format) async => pdf.save());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +114,7 @@ class _AnalyticsReportScreenState extends State<AnalyticsReportScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text('\$1500', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    Text('₹1500', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)), // Rupee symbol added
                     Text('120 Deliveries', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                   ],
                 ),
@@ -101,9 +126,7 @@ class _AnalyticsReportScreenState extends State<AnalyticsReportScreen> {
             // Export Button
             Center(
               child: ElevatedButton(
-                onPressed: () {
-                  // Add PDF export functionality here
-                },
+                onPressed: generatePdfReport, // Call PDF generation function
                 child: Text('Export Report as PDF'),
               ),
             ),
