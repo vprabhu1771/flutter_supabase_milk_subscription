@@ -56,9 +56,9 @@ class _PaymentTrackingScreenState extends State<PaymentTrackingScreen> {
                   ),
                 ),
                 onTap: () {
-                  if (payment['status'] == 'Pending') {
-                    _recordPayment(index);
-                  }
+                  // if (payment['status'] == 'Pending') {
+                  //   _recordPayment(index);
+                  // }
                 },
               ),
             );
