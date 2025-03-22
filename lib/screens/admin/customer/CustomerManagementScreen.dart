@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../models/Customer.dart';
 import 'AddEditCustomerScreen.dart';
 import 'CustomerDetailPage.dart';
 
@@ -16,7 +17,7 @@ class CustomerManagementScreen extends StatefulWidget {
 
 class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
   final SupabaseClient supabase = Supabase.instance.client;
-  List<Map<String, dynamic>> customers = [];
+  List<Customer> customers = [];
 
   @override
   void initState() {
@@ -25,36 +26,40 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
     _subscribeToRealtimeUpdates();
   }
 
-  void _fetchCustomers() async {
-    final response = await supabase.from('users').select('id, name, email, phone');
+  Future<void> _fetchCustomers() async {
+    final response = await supabase.from('users').select();
+    final List<Customer> fetchedCustomers = response
+        .map<Customer>((json) => Customer.fromJson(json))
+        .toList();
+
     setState(() {
-      customers = List<Map<String, dynamic>>.from(response);
+      customers = fetchedCustomers;
     });
   }
 
   void _subscribeToRealtimeUpdates() {
-    supabase
-        .from('users')
-        .stream(primaryKey: ['id'])
-        .listen((List<Map<String, dynamic>> data) {
+    supabase.from('users').stream(primaryKey: ['id']).listen((data) {
+      final List<Customer> updatedCustomers = data
+          .map<Customer>((json) => Customer.fromJson(json))
+          .toList();
       setState(() {
-        customers = data;
+        customers = updatedCustomers;
       });
     });
   }
 
-  void _deleteCustomer(int index) async {
-    final customerId = customers[index]['id'];
-    final response = await supabase.from('users').delete().match({'id': customerId});
-
-    print(response.toString());
+  Future<void> _deleteCustomer(int index) async {
+    final customerId = customers[index].id;
+    await supabase.from('users').delete().match({'id': customerId});
 
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Customer deleted')),
+      const SnackBar(content: Text('Customer deleted')),
     );
+
+    _fetchCustomers();
   }
 
-  void _navigateToDetail(Map<String, dynamic> customer) {
+  void _navigateToDetail(Customer customer) {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -66,16 +71,16 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
   void _addCustomer() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => AddEditCustomerScreen(title: 'Add Customer',)),
-    );
+      MaterialPageRoute(builder: (context) => const AddEditCustomerScreen(title: 'Add Customer')),
+    ).then((_) => _fetchCustomers());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Customer Management')),
+      appBar: AppBar(title: const Text('Customer Management')),
       body: customers.isEmpty
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : ListView.builder(
         itemCount: customers.length,
         itemBuilder: (context, index) {
@@ -85,9 +90,7 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
               motion: const ScrollMotion(),
               children: [
                 SlidableAction(
-                  onPressed: (context) {
-                    _navigateToDetail(customer);
-                  },
+                  onPressed: (context) => _navigateToDetail(customer),
                   backgroundColor: Colors.blue,
                   icon: Icons.edit,
                   label: 'Edit',
@@ -98,9 +101,7 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
               motion: const ScrollMotion(),
               children: [
                 SlidableAction(
-                  onPressed: (context) {
-                    _deleteCustomer(index);
-                  },
+                  onPressed: (context) => _deleteCustomer(index),
                   backgroundColor: Colors.red,
                   icon: Icons.delete,
                   label: 'Delete',
@@ -108,10 +109,10 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
               ],
             ),
             child: ListTile(
-              leading: CircleAvatar(child: Text(customer['name'][0])),
-              title: Text(customer['name']),
-              subtitle: Text(customer['email']),
-              trailing: Icon(Icons.arrow_forward_ios),
+              leading: CircleAvatar(child: Text(customer.name[0].toUpperCase())),
+              title: Text(customer.name),
+              subtitle: Text(customer.email),
+              trailing: const Icon(Icons.arrow_forward_ios),
               onTap: () => _navigateToDetail(customer),
             ),
           );
@@ -119,7 +120,7 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _addCustomer,
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
