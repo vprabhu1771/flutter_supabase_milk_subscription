@@ -159,17 +159,17 @@ class CustomDrawer extends StatelessWidget {
                     );
                   },
                 ),
-                ListTile(
-                  leading: Icon(Icons.notification_important),
-                  title: Text('Notifications & Alerts'),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                        parentContext,
-                        MaterialPageRoute(builder: (context) => AdminNotificationScreen(title: 'Notifications & Alerts'))
-                    );
-                  },
-                ),
+                // ListTile(
+                //   leading: Icon(Icons.notification_important),
+                //   title: Text('Notifications & Alerts'),
+                //   onTap: () {
+                //     Navigator.pop(context);
+                //     Navigator.push(
+                //         parentContext,
+                //         MaterialPageRoute(builder: (context) => AdminNotificationScreen(title: 'Notifications & Alerts'))
+                //     );
+                //   },
+                // ),
                 ListTile(
                   leading: Icon(Icons.settings),
                   title: Text('Settings & User Management'),
@@ -178,14 +178,14 @@ class CustomDrawer extends StatelessWidget {
                     Navigator.push(parentContext, MaterialPageRoute(builder: (context) => AdminSettingAndUserManagement(title: 'Settings & User Management')));
                   },
                 ),
-                ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text('Settings'),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(parentContext, MaterialPageRoute(builder: (context) => SettingScreen(title: 'Settings')));
-                  },
-                ),
+                // ListTile(
+                //   leading: Icon(Icons.settings),
+                //   title: Text('Settings'),
+                //   onTap: () {
+                //     Navigator.pop(context);
+                //     Navigator.push(parentContext, MaterialPageRoute(builder: (context) => SettingScreen(title: 'Settings')));
+                //   },
+                // ),
                 ListTile(
                   leading: Icon(Icons.contacts),
                   title: Text('Profile'),
