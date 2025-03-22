@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_supabase_milk_subscription/widgets/CustomDrawer.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'AdminNotificationScreen.dart';
 import 'AnalyticsReportScreen.dart';
 import 'customer/CustomerManagementScreen.dart';
 
@@ -112,6 +113,23 @@ class _AdminDashboardState extends State<AdminDashboard> {
       appBar: AppBar(
         title: Text(widget.title),
         centerTitle: true,
+        actions: [
+          IconButton(
+              icon: Icon(Icons.notifications),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AdminNotificationScreen(title: 'Notifications & Alerts'))
+                );
+              }
+          ),
+          IconButton(
+              icon: Icon(Icons.dark_mode),
+              onPressed: () {
+
+              }
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
