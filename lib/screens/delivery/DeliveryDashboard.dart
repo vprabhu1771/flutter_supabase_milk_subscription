@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_supabase_milk_subscription/widgets/CustomDrawer.dart';
 
+import 'NotificationScreen.dart';
+
 class DeliveryDashboard extends StatefulWidget {
 
   final String title;
@@ -25,6 +27,14 @@ class _DeliveryDashboardState extends State<DeliveryDashboard> {
       appBar: AppBar(
         title: Text(widget.title),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.notifications),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationScreen(title: 'Notification')));
+            },
+          )
+        ],
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
