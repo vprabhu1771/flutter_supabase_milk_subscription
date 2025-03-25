@@ -5,8 +5,9 @@ class Order {
   final String address;
   final List<String> items;
   final String paymentStatus;
-  final double lat; // Added latitude field
-  final double lan; // Added longitude field
+  String? deliveryStatus;
+  final double lat; // Latitude
+  final double lng; // Longitude (Fixed lan → lng)
 
   Order({
     required this.time,
@@ -15,11 +16,12 @@ class Order {
     required this.address,
     required this.items,
     required this.paymentStatus,
+    this.deliveryStatus = 'Pending', // Default to 'Pending'
     required this.lat,
-    required this.lan,
+    required this.lng,
   });
 
-  /// Factory method to create an Order from a Map (useful for JSON parsing)
+  /// **Factory method to create an `Order` from a Map (useful for JSON parsing)**
   factory Order.fromMap(Map<String, dynamic> map) {
     return Order(
       time: map['time'] ?? '',
@@ -28,12 +30,13 @@ class Order {
       address: map['address'] ?? '',
       items: List<String>.from(map['items'] ?? []),
       paymentStatus: map['paymentStatus'] ?? '',
-      lat: (map['lat'] ?? 0.0).toDouble(), // Parsing latitude
-      lan: (map['lan'] ?? 0.0).toDouble(), // Parsing longitude
+      deliveryStatus: map['deliveryStatus'] ?? 'Pending', // Default handling
+      lat: (map['lat'] ?? 0.0).toDouble(),
+      lng: (map['lng'] ?? 0.0).toDouble(),
     );
   }
 
-  /// Converts the Order object to a Map (useful for sending data)
+  /// **Converts the `Order` object to a Map (useful for API requests)**
   Map<String, dynamic> toMap() {
     return {
       'time': time,
@@ -42,8 +45,9 @@ class Order {
       'address': address,
       'items': items,
       'paymentStatus': paymentStatus,
-      'lat': lat, // Added latitude to map
-      'lan': lan, // Added longitude to map
+      'deliveryStatus': deliveryStatus,
+      'lat': lat,
+      'lng': lng, // Fixed field name
     };
   }
 }
