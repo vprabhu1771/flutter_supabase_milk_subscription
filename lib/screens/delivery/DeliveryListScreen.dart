@@ -13,7 +13,6 @@ class DeliveryListScreen extends StatefulWidget {
 }
 
 class _DeliveryListScreenState extends State<DeliveryListScreen> {
-
   final List<Order> deliveries = [
     Order(
       time: '08:00 AM',
@@ -22,8 +21,9 @@ class _DeliveryListScreenState extends State<DeliveryListScreen> {
       address: '23, Main Street, Manjakuppam',
       items: ['Idli', 'Vada', 'Coffee'],
       paymentStatus: 'Paid',
+      deliveryStatus: 'Pending',
       lat: 11.7447,
-      lan: 79.7588,
+      lng: 79.7588,
     ),
     Order(
       time: '09:30 AM',
@@ -32,41 +32,11 @@ class _DeliveryListScreenState extends State<DeliveryListScreen> {
       address: '56, Lake View Road, Thirupapuliyur',
       items: ['Dosa', 'Tea'],
       paymentStatus: 'Unpaid',
+      deliveryStatus: 'Pending',
       lat: 11.7425,
-      lan: 79.7553,
-    ),
-    Order(
-      time: '11:00 AM',
-      location: 'Semmandalam, Cuddalore',
-      customer: 'Karthik Subramanian',
-      address: '12, Gandhi Nagar, Semmandalam',
-      items: ['Poori', 'Sambar', 'Juice'],
-      paymentStatus: 'Paid',
-      lat: 11.7436,
-      lan: 79.7601,
-    ),
-    Order(
-      time: '01:00 PM',
-      location: 'OTC, Cuddalore',
-      customer: 'Revathi N',
-      address: '88, Market Road, Old Town Cuddalore (OTC)',
-      items: ['Meals', 'Buttermilk'],
-      paymentStatus: 'Paid',
-      lat: 11.7384,
-      lan: 79.7632,
-    ),
-    Order(
-      time: '03:30 PM',
-      location: 'Vallalar Nagar, Cuddalore',
-      customer: 'Suresh Babu',
-      address: '45, Vallalar Street, Vallalar Nagar',
-      items: ['Chapathi', 'Paneer Curry'],
-      paymentStatus: 'Unpaid',
-      lat: 11.7419,
-      lan: 79.7504,
+      lng: 79.7553,
     ),
   ];
-
 
   @override
   Widget build(BuildContext context) {
@@ -81,64 +51,91 @@ class _DeliveryListScreenState extends State<DeliveryListScreen> {
         itemCount: deliveries.length,
         itemBuilder: (context, index) {
           final delivery = deliveries[index];
-          return _buildDeliveryCard(delivery, context);
+          return _buildDeliveryCard(delivery, index, context);
         },
       ),
     );
   }
 
-  Widget _buildDeliveryCard(Order delivery, BuildContext context) {
+  Widget _buildDeliveryCard(Order delivery, int index, BuildContext context) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       elevation: 4,
-      child: InkWell(
-        onTap: () {
-          // Navigate to OrderDetailScreen and pass the order
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => OrderDetailScreen(order: delivery),
-          //   ),
-          // );
-
-          // Navigate to OrderDetailScreen and pass the order
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => DeliveryMapScreen(order: delivery),
-            ),
-          );
-        },
-        child: ExpansionTile(
-          leading: CircleAvatar(
-            backgroundColor: Colors.blueAccent.withOpacity(0.1),
-            child: const Icon(Icons.location_on, color: Colors.blueAccent),
-          ),
-          title: Text(
-            delivery.location,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          subtitle: Text('Time: ${delivery.time}'),
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildDetailRow('Customer:', delivery.customer),
-                  _buildDetailRow('Address:', delivery.address),
-                  _buildDetailRow('Items:', delivery.items.join(', ')),
-                  _buildDetailRow(
-                    'Payment Status:',
-                    delivery.paymentStatus,
-                    color: delivery.paymentStatus == 'Paid' ? Colors.green : Colors.red,
-                  ),
-                ],
-              ),
-            ),
-          ],
+      child: ExpansionTile(
+        leading: CircleAvatar(
+          backgroundColor: Colors.blueAccent.withOpacity(0.1),
+          child: const Icon(Icons.location_on, color: Colors.blueAccent),
         ),
+        title: Text(
+          delivery.location,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+        subtitle: Text('Time: ${delivery.time}'),
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildDetailRow('Customer:', delivery.customer),
+                _buildDetailRow('Address:', delivery.address),
+                _buildDetailRow('Items:', delivery.items.join(', ')),
+                // _buildDetailRow(
+                //   'Payment Status:',
+                //   delivery.paymentStatus,
+                //   color: delivery.paymentStatus == 'Paid' ? Colors.green : Colors.red,
+                // ),
+                _buildDetailRow(
+                  'Delivery Status:',
+                  delivery.deliveryStatus ?? 'Pending',
+                  color: delivery.deliveryStatus == 'Delivered' ? Colors.green : Colors.orange,
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          if (deliveries[index].deliveryStatus == 'Pending') {
+                            deliveries[index].deliveryStatus = 'Delivered';
+                          } else {
+                            deliveries[index].deliveryStatus = 'Pending';
+                          }
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: deliveries[index].deliveryStatus == 'Delivered'
+                            ? Colors.red // Red when Delivered (Undo)
+                            : Colors.green, // Green when Pending (Mark Delivered)
+                      ),
+                      child: Text(
+                        deliveries[index].deliveryStatus == 'Delivered'
+                            ? 'Pending' // Show Undo when Delivered
+                            : 'Mark Delivered', // Show Mark Delivered when Pending
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DeliveryMapScreen(order: delivery),
+                          ),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                      ),
+                      child: const Text('View on Map'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
