@@ -277,7 +277,7 @@ class CustomDrawer extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.map),
+                  leading: Icon(Icons.dashboard),
                   title: Text('Dashboard'),
                   onTap: () {
                     Navigator.pop(context);
@@ -285,7 +285,7 @@ class CustomDrawer extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.map),
+                  leading: Icon(Icons.assignment),
                   title: Text('Assigned Deliveries'),
                   onTap: () {
                     Navigator.pop(context);
@@ -293,7 +293,7 @@ class CustomDrawer extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.map),
+                  leading: Icon(Icons.monetization_on),
                   title: Text('Earnings & Payments'),
                   onTap: () {
                     Navigator.pop(context);
@@ -301,7 +301,7 @@ class CustomDrawer extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.map),
+                  leading: Icon(Icons.notifications),
                   title: Text('Notification'),
                   onTap: () {
                     Navigator.pop(context);
