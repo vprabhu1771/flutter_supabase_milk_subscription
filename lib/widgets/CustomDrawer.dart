@@ -268,14 +268,14 @@ class CustomDrawer extends StatelessWidget {
                   },
                 ),
               ] else if (role == 'delivery') ...[
-                ListTile(
-                  leading: Icon(Icons.home),
-                  title: Text('Home'),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(parentContext, MaterialPageRoute(builder: (context) => DeliveryDashboard(title: 'Delivery Dashboard')));
-                  },
-                ),
+                // ListTile(
+                //   leading: Icon(Icons.home),
+                //   title: Text('Home'),
+                //   onTap: () {
+                //     Navigator.pop(context);
+                //     Navigator.push(parentContext, MaterialPageRoute(builder: (context) => DeliveryDashboard(title: 'Delivery Dashboard')));
+                //   },
+                // ),
                 ListTile(
                   leading: Icon(Icons.dashboard),
                   title: Text('Dashboard'),
@@ -292,22 +292,22 @@ class CustomDrawer extends StatelessWidget {
                     Navigator.push(parentContext, MaterialPageRoute(builder: (context) => DeliveryListScreen(title: 'Assigned Deliveries')));
                   },
                 ),
-                ListTile(
-                  leading: Icon(Icons.monetization_on),
-                  title: Text('Earnings & Payments'),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(parentContext, MaterialPageRoute(builder: (context) => EarningsPaymentsScreen(title: 'Earnings & Payments')));
-                  },
-                ),
-                ListTile(
-                  leading: Icon(Icons.notifications),
-                  title: Text('Notification'),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(parentContext, MaterialPageRoute(builder: (context) => NotificationScreen(title: 'Notification')));
-                  },
-                ),
+                // ListTile(
+                //   leading: Icon(Icons.monetization_on),
+                //   title: Text('Earnings & Payments'),
+                //   onTap: () {
+                //     Navigator.pop(context);
+                //     Navigator.push(parentContext, MaterialPageRoute(builder: (context) => EarningsPaymentsScreen(title: 'Earnings & Payments')));
+                //   },
+                // ),
+                // ListTile(
+                //   leading: Icon(Icons.notifications),
+                //   title: Text('Notification'),
+                //   onTap: () {
+                //     Navigator.pop(context);
+                //     Navigator.push(parentContext, MaterialPageRoute(builder: (context) => NotificationScreen(title: 'Notification')));
+                //   },
+                // ),
                 // ListTile(
                 //   leading: Icon(Icons.map),
                 //   title: Text('Order'),
