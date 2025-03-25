@@ -58,7 +58,7 @@ class _DeliveryMapScreenState extends State<DeliveryMapScreen> {
           markerId: const MarkerId('destinationLocation'),
           icon: BitmapDescriptor.defaultMarkerWithHue(
               BitmapDescriptor.hueRed),
-          position: LatLng(widget.order.lat, widget.order.lan),
+          position: LatLng(widget.order.lat, widget.order.lng),
           infoWindow: InfoWindow(
               title: 'Customer Location', snippet: widget.order.address),
         ),
@@ -110,7 +110,7 @@ class _DeliveryMapScreenState extends State<DeliveryMapScreen> {
     final result = await polylinePoints.getRouteBetweenCoordinates(
       dotenv.env['GOOGLE_MAP_KEY'] ?? "",
       PointLatLng(currentPosition!.latitude, currentPosition!.longitude),
-      PointLatLng(widget.order.lat, widget.order.lan),
+      PointLatLng(widget.order.lat, widget.order.lng),
     );
 
     if (result.points.isNotEmpty) {
